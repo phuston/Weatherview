@@ -1,0 +1,58 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    $(".delete").click(function(){
+    	var $row = $(this).closest("tr");
+
+    	var $_id = $row.find("._id").text();
+
+        var weather = {
+            id: $_id,
+        };
+
+        $.ajax({
+            url: 'http://127.0.0.1:3000/delete',
+            data: weather,
+            type: 'DELETE'
+        });
+
+        $row.remove();  
+
+    	// alert("YO dis should be deleting.");
+	});
+});
+	
+</script>
+
+<form action="http://127.0.0.1:3000/add" method="POST">
+  Summary:
+  <input type="text" name="summary">
+  Temperature:
+  <input type="text" name="temp">
+  Precip %:
+  <input type="text" name="precip"> <input type="submit" value="Submit">
+</form> <br>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Precipitation</th>
+        <th>Temperature</th>
+        <th>Delete</th>
+    </tr>
+    {{#each Weathers}}
+        <tr>
+            <td class="_id" style="display:none;">{{_id}}</td>
+            <td class="time">{{time}}</td>
+            <td class="summ">{{summary}}</td>
+            <td class="prec">{{precip}}</td>
+            <td class="temp">{{temp}}</td>
+            <td><input class="delete" type="button" value="Delete"></td>
+        </tr>
+    {{/each}}
+</table>
