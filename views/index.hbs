@@ -15,20 +15,18 @@ $( document ).ready(function() {
         };
 
         $.ajax({
-            url: 'http://127.0.0.1:3000/delete',
+            url: 'http://localhost:3000/delete',
             data: weather,
             type: 'DELETE'
         });
 
         $row.remove();  
-
-    	// alert("YO dis should be deleting.");
 	});
 });
 	
 </script>
 
-<form action="http://127.0.0.1:3000/add" method="POST">
+<form action="http://localhost:3000/add" method="POST">
   Summary:
   <input type="text" name="summary">
   Temperature:
