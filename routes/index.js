@@ -11,7 +11,7 @@ router.get('/all', function(req, res, next) {
 	});
 });
 
-router.get('/data/:season', function(req, res, next) {
+router.get('/data/sort/:season', function(req, res, next) {
 	var season = req.params.season;
 
 	var spring15 = new Date(2015, 2, 20);
@@ -82,11 +82,22 @@ router.delete('/delete', function(req, res, next) {
 })
 
 router.options('/delete', function(req, res){
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'DELETE');
-  res.end();
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'DELETE');
+	res.end();
 });
 
-router.get('/data/:param')
+router.get('/visualize', function(req, res, next){
+	res.render('visualize');
+});
+
+router.get('/data/json', function(req, res, next){
+	Weather.find({}).sort({time: 'asc'}).exec(function(err, weathers) {
+		res.json(weathers);
+		// res.json(weathers.map(function(weather){
+		// 	return weather.temp
+		// }));
+	});
+});
 
 module.exports = router;
